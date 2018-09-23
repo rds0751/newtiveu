@@ -6,4 +6,4 @@ set -o nounset
 set -o xtrace
 
 
-celery -A bootcamp.taskapp worker -l INFO
+celery -A tiveU.taskapp worker -l INFO

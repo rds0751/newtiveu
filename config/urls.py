@@ -4,18 +4,18 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
+from django.views.generic import RedirectView
 
 from graphene_django.views import GraphQLView
 
 urlpatterns = [
-    url(r'^$',
-        TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    url(r'^$', RedirectView.as_view(url='accounts/login')),
     url(r'^about/$',
         TemplateView.as_view(template_name='pages/about.html'), name='about'),
     # Django Admin, use {% url 'admin:index' %}
     url(settings.ADMIN_URL, admin.site.urls),
     # User management
-    url(r'^users/', include('bootcamp.users.urls', namespace='users')),
+    url(r'^users/', include('tiveU.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
     # Third party apps here
     url(r'^comments/', include('django_comments.urls')),
@@ -23,14 +23,14 @@ urlpatterns = [
     url(r'^markdownx/', include('markdownx.urls')),
     # Local apps here
     url(r'^notifications/',
-        include('bootcamp.notifications.urls', namespace='notifications')),
+        include('tiveU.notifications.urls', namespace='notifications')),
     url(r'^articles/',
-        include('bootcamp.articles.urls', namespace='articles')),
-    url(r'^news/', include('bootcamp.news.urls', namespace='news')),
+        include('tiveU.articles.urls', namespace='articles')),
+    url(r'^news/', include('tiveU.news.urls', namespace='news')),
     url(r'^messages/',
-        include('bootcamp.messager.urls', namespace='messager')),
-    url(r'^qa/', include('bootcamp.qa.urls', namespace='qa')),
-    url(r'^search/', include('bootcamp.search.urls', namespace='search')),
+        include('tiveU.messager.urls', namespace='messager')),
+    url(r'^qa/', include('tiveU.qa.urls', namespace='qa')),
+    url(r'^search/', include('tiveU.search.urls', namespace='search')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="style/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+  <div id="web-version" class="c"><!--Web Version Starts here,SYNTAX c="container"-->
+  <table style="width:100%;">
+
+
+
+  <td class="home-l-c"><!-- Left side of the Home Page Begins-->
+    <div id="home-img">
+      <img src="img/u.png">
+    </div>
+  <td><!-- Left Side of the Home Page Ends -->
+
+
+
+  <td class="home-r-c" style="float:right;"><!-- Right side of the Home Page Begins -->
+    <form style="width:500px;"><!-- Top bar Login Form Begins-->
+      <div class="i-s"><!-- SYNTAX i="input",s="with span" -->
+          <input type="text" name="firstname">
+            <span>Username/Email</span>
+      </div>
+      <div class="i-s">
+          <input type="password" name="password">
+            <span>Password</span>
+      </div>
+      <div class="b wb_ navb"><!-- SYNTAX b="button",wb_="white button used inside",navb="button present in nav bar"-->
+        <button class="wb" type="button" name="submit" id="button">Log In</button><!-- SYNTAX wb="white button" -->
+      </div>
+      <div class="p navp"><!-- SYNTAX p="para",navp="para present in nav bar"-->
+        <a style="color:#333;padding-right:130px;" href="#">Forgot password?</a><!-- link color changed to #333-->
+         or
+        <a href="#">Login as a guest</a>
+      </div>
+    </form><!-- Top bar login form ends -->
+    <br>
+        <img style="width:24px;"src="img/u.png"><!-- logo below top bar -->
+    <br>
+        <h3>Share your ideas with<br> people who matter.</h3>
+    <br>
+        <h5>Join iQhue Today</h5>
+    <br>
+        <form style="width:333px;"><!-- Main page signup form begins -->
+          <div class="i-s li-s"><!-- SYNTAX li="long input",s="with span"-->
+            <input class="li" type="text" name="firstname">
+            <span>First Name</span>
+          </div><br>
+          <div class="i-s li-s">
+            <input class="li" type="text" name="lastname">
+            <span>Last Name</span>
+          </div><br>
+          <div class="i-s li-s">
+            <input class="li" type="text" name="email">
+            <span>Email</span>
+          </div><br>
+          <div class="i-s li-s">
+            <input class="li" type="text" name="phone">
+            <span>Phone</span>
+          </div><br>
+          <div class="i-s li-s">
+            <input class="li" type="password" name="password">
+            <span>Password</span>
+          </div><br>
+          <div class="i-s li-s">
+            <input class="li" type="text" name="username">
+            <span>Username</span>
+          </div><br>
+          <div class="b bb_"><!-- SYNTAX bb_="blue button used inside"-->
+            <button class="bb" type="button" name="submit" id="button">Sign up</button><!-- SYNTAX bb="blue button"-->
+          </div>
+        </form>
+  </td><!-- Right side of the home page ends-->
+</table>
+</div><!-- Web version ends here-->
+
+
+
+<div id="mobile-version" class="mc"><!-- Mobile version starts here, SYNTAX mc="mobile container" -->
+  <div class="home-main"><!-- Mobile home page starts here -->
+    <div id="m-home-img"><!-- Mobile logo starts here-->
+      <img src="img/TiveU.png">
+    </div>
+    <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit.</p>
+  </div><!-- Mobile home page ends here -->
+
+
+
+  <div class="home-options"><!-- Mobile home page buttons start here -->
+    <div class="b wb_ homeb"><!-- SYNTAX b="button",wb_="contains white button",homeb="button present on home page" -->
+        <button id="showSignup" class="wb" type="button" name="button">Sign up</button><!-- Sign up button, shows ".home-signup" on click-->
+        <button id="showLogin" class="wb" type="button" name="button">Log In</button><!-- Login button, shows ".home-login" on click-->
+    </div>
+    <p>or<p>
+    <a href="#">Log in as guest</a>
+  </div><!-- Mobile home page buttons end here -->
+
+
+
+  <div id="home-slide" class="home-signup" style="display:none;"><!-- Mobile signup page starts here, set to "display:none", will show only when "#showSignup" is clicked-->
+    <div id="slide-back-signup"><!-- back button, onclick hides ".home-signup" -->
+      <svg width="7" height="12" viewBox="0 0 7 12"><path d="M1.45 6.002L7 11.27l-.685.726L0 6.003 6.315 0 7 .726z"></path></svg>
+    </div>
+    <h2>Sign Up</h2>
+
+    <form><!-- Signup form on sliding page starts here-->
+      <div class="i-s li-s m-i-s"><!-- SYNTAX i-s="input with span",li-s="long input with span",m-i-s="mobile input with span" -->
+        <input class="li-m" type="text" name="firstname"><!-- SYNTAX li-m="long input on mobile"-->
+        <span>First Name</span>
+      </div><br>
+      <div class="i-s li-s m-i-s">
+        <input class="li-m" type="text" name="lastname">
+        <span>Last Name</span>
+      </div><br>
+      <div class="i-s li-s m-i-s">
+        <input class="li-m" type="text" name="email">
+        <span>Email</span>
+      </div><br>
+      <div class="i-s li-s m-i-s">
+        <input class="li-m" type="text" name="phone">
+        <span>Phone</span>
+      </div><br>
+      <div class="i-s li-s m-i-s">
+        <input class="li-m" type="password" name="password">
+        <span>Password</span>
+      </div><br>
+      <div class="i-s li-s m-i-s">
+        <input class="li-m" type="text" name="username">
+        <span>Username</span>
+      </div><br>
+      <div class="b wb_ homesignupb"><!-- SYNTAX b="button",wb_="white button inside",homesignupb="signup button on home page" -->
+        <button id="button" class="wb" type="button" name="button" >Sign up</button>
+      </div>
+    </form><!-- Signup form on sliding page ends here-->
+  </div><!-- Mobile signup page ends here-->
+
+
+
+  <div id="home-slide" class="home-login" style="display:none;"><!-- Mobile login page start here, set to "display:none;", will only show when "#showLogin" is clicked -->
+    <div id="slide-back-login"><!-- back button, on click hides ".home-login" -->
+      <svg width="7" height="12" viewBox="0 0 7 12"><path d="M1.45 6.002L7 11.27l-.685.726L0 6.003 6.315 0 7 .726z"></path></svg>
+    </div>
+    <h2>Log In</h2>
+
+
+    <form><!-- Login form on sliding page starts here -->
+      <div class="i-s li-s m-i-s"><!-- SYNTAX i-s="input with span",li-s="long input with span",m-i-s="mobile input with span" -->
+        <input class="li-m" type="text" name="username"><!-- SYNTAX li-m="long input on mobile"-->
+        <span>Username/Email</span>
+      </div><br>
+      <div class="i-s li-s m-i-s">
+        <input class="li-m" type="password" name="password">
+        <span>Password</span>
+      </div><br>
+      <div class="b wb_ homesignupb"><!-- SYNTAX b="button",wb_="white button inside",homesignupb="signup button on home page" -->
+        <button id="button" class="wb" type="button" name="button" >Log In</button>
+      </div>
+    </form><!-- Login form on sliding page ends here -->
+  </div><!-- Mobile login page ends here -->
+</div><!-- Mobile version ends here-->
+
+
+<style>
+@media only screen and (max-width: 955px) {
+    #web-version {
+      display:none;
+    }
+    #mobile-version {
+      display:block;
+    }
+    .web-nav,#feed-l,.uploadpost {
+      display:none;
+    }
+    .mobile-nav,.close-m-search svg,.m-search {
+      display:block;
+    }
+    .main-l-c{
+      width:100%;
+    }
+    .main-r-c{
+      width:100%;
+    }
+    .searches {
+      height:100%;
+      margin-bottom:50px;
+      margin-top:0;
+      width:100%;
+      z-index:1;
+      box-shadow: none;
+    }
+    .notifications {
+      width:100%;
+      height:100%;
+      box-shadow: none;
+      z-index:1;
+      margin:0;
+      left: 50%;
+      transform: translate(-50%, 0);
+
+    }
+
+    #t-not {
+      position: relative;
+    }
+    #not{
+      width:200px;
+    }
+
+    .feed {
+      padding-top:0px;
+      padding-bottom: 50px;
+    }
+    .post{
+      max-width: none;
+    }
+}
+
+</style>
+<style>
+
+@font-face {
+font-family: MetropolisRegular;
+src: url(fonts/Metropolis/OTF/Metropolis-Regular.otf);
+}
+@font-face {
+font-family: MetropolisLight;
+src: url(fonts/Metropolis/OTF/Metropolis-Light.otf);
+}
+@font-face {
+font-family: MetropolisBold;
+src: url(fonts/Metropolis/OTF/Metropolis-Bold.otf);
+}
+</style>
+<script>
+  $(document).ready(function(){
+    $("#showSignup").click(function(){
+        $(".home-signup").show();
+    });
+    $("#showLogin").click(function(){
+        $(".home-login").show();
+    });
+    $("#slide-back-login").click(function(){
+          $(".home-login").hide();
+    });
+    $("#slide-back-signup").click(function(){
+          $(".home-signup").hide();
+    });
+});
+</script>
+  </body>
+</html>

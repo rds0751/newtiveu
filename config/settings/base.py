@@ -1,11 +1,11 @@
 """
 Base settings to build other settings files upon.
 """
-
+import os
 import environ
 
-ROOT_DIR = environ.Path(__file__) - 3  # (bootcamp/config/settings/base.py - 3 = bootcamp/)
-APPS_DIR = ROOT_DIR.path('bootcamp')
+ROOT_DIR = environ.Path(__file__) - 3  # (tiveU/config/settings/base.py - 3 = tiveU/)
+APPS_DIR = ROOT_DIR.path('tiveU')
 
 env = environ.Env()
 env.read_env(str(ROOT_DIR.path('.env')))
@@ -18,7 +18,7 @@ env.read_env(str(ROOT_DIR.path('.env')))
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = True
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -39,8 +39,12 @@ USE_TZ = True
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-    'default': env.db('DATABASE_URL'),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(ROOT_DIR, 'db.sqlite3'),
+    }
 }
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
@@ -81,14 +85,14 @@ THIRD_PARTY_APPS = [
     'taggit',
 ]
 LOCAL_APPS = [
-    'bootcamp.users.apps.UsersConfig',
+    'tiveU.users.apps.UsersConfig',
     # Your stuff: custom apps go here
-    'bootcamp.articles.apps.ArticlesConfig',
-    'bootcamp.messager.apps.MessagerConfig',
-    'bootcamp.news.apps.NewsConfig',
-    'bootcamp.notifications.apps.NotificationsConfig',
-    'bootcamp.qa.apps.QaConfig',
-    'bootcamp.search.apps.SearchConfig'
+    'tiveU.articles.apps.ArticlesConfig',
+    'tiveU.messager.apps.MessagerConfig',
+    'tiveU.news.apps.NewsConfig',
+    'tiveU.notifications.apps.NotificationsConfig',
+    'tiveU.qa.apps.QaConfig',
+    'tiveU.search.apps.SearchConfig'
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -97,7 +101,7 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {
-    'sites': 'bootcamp.contrib.sites.migrations'
+    'sites': 'tiveU.contrib.sites.migrations'
 }
 
 # AUTHENTICATION
@@ -248,9 +252,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = 'bootcamp.users.adapters.AccountAdapter'
+ACCOUNT_ADAPTER = 'tiveU.users.adapters.AccountAdapter'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = 'bootcamp.users.adapters.SocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'tiveU.users.adapters.SocialAccountAdapter'
 
 
 # Your stuff...
@@ -273,5 +277,5 @@ CHANNEL_LAYERS = {
 
 # GraphQL settings
 GRAPHENE = {
-    'SCHEMA': 'bootcamp.schema.schema'
+    'SCHEMA': 'tiveU.schema.schema'
 }
