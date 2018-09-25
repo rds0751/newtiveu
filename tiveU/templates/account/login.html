@@ -11,6 +11,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
+
+
+
+
+  <!-- Web version starts here -->
   <div id="web-version" class="c"><!--Web Version Starts here,SYNTAX c="container"-->
   <table style="width:100%;">
   <td class="home-l-c"><!-- Left side of the Home Page Begins-->
@@ -22,7 +27,7 @@
     <form style="width:500px;" class="login" method="POST" action="{% url 'account_login' %}"><!-- Top bar Login Form Begins-->
       {% csrf_token %}
       <div class="i-s"><!-- SYNTAX i="input",s="with span" -->
-        {% form.login.widget.attrs.pop('class', None) %}
+          {{ form.login }}
         <span>Username/Email</span>
       </div>
       <div class="i-s">
