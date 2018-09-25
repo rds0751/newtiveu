@@ -18,11 +18,13 @@
       <img src="{% static 'img/u.png' %}">
     </div>
   <td><!-- Left Side of the Home Page Ends -->
+
+
   <td class="home-r-c" style="float:right;"><!-- Right side of the Home Page Begins -->
     <form style="width:500px;" class="login" method="POST" action="{% url 'account_login' %}"><!-- Top bar Login Form Begins-->
       {% csrf_token %}
       <div class="i-s"><!-- SYNTAX i="input",s="with span" -->
-        {% form.login.widget.attrs.pop('class', None) %}
+        {{form.login}}
         <span>Username/Email</span>
       </div>
       <div class="i-s">
