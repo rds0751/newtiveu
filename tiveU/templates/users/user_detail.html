@@ -23,7 +23,7 @@
       <li id="home-b"><img src="{% static 'img/home2.png' %}"></li><!-- home button-->
       <li id="notificaion-b"><img src="{% static 'img/bell2.png' %}"></li><!-- notificaion button-->
       <li><div id="pfp" class="nav-pfp"></div></li><!-- SYNTAX pfp="profile picture",nav-pfp="profile picture inside the navigation" -->
-      <li><div id="nav-name">{{ object.username }}</div></li><!-- SYNTAX nav-name="full name of the user"-->
+      <li><div id="nav-name">{{ object.name }}</div></li><!-- SYNTAX nav-name="full name of the user"-->
     </ul><!-- Menu ends here-->
 
     <div class="search"><!-- Search inside top bar starts here-->
@@ -57,7 +57,7 @@
           <td id="p-h-l"><!-- left side of the header starts here ,SYNTAX p-h-l="post header left"-->
             <div class="p-author">
                 <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
-                <div id="p-a-name">{{ object.username }}</div>
+                <div id="p-a-name">{{ object.name }}</div>
             </div>
           </td><!-- left side of the header ends here -->
           <td id="p-h-r"><!-- right side of the header starts here ,SYNTAX p-h-r="post header right"-->
@@ -82,7 +82,7 @@
           <td id="p-h-l"><!-- left side of the header starts here ,SYNTAX p-h-l="post header left"-->
             <div class="p-author">
                 <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
-                <div id="p-a-name">{{ object.username }}</div>
+                <div id="p-a-name">{{ object.name }}</div>
             </div>
           </td><!-- left side of the header ends here -->
           <td id="p-h-r"><!-- right side of the header starts here ,SYNTAX p-h-r="post header right"-->
@@ -127,7 +127,7 @@
                 <td id="p-h-l">
                   <div class="p-author">
                     <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
-                    <div id="p-a-name">{{ object.username }}</div>
+                    <div id="p-a-name">{{ object.name }}</div>
                   </div>
                 </td>
                 <td><button id="button" class="bb" type="submit">POST</button></td><!-- button to submit post -->
@@ -197,8 +197,8 @@
 
 <table id="web-p-des" style="width:100%;"><!-- Profile description on web version-->
   <td>
-    <h1>{{ object.username }}</h1>
-    <h5>graphic designer</h5>
+    <h1>{{ object.name }}</h1>
+    <h5>{{ object.job_title }}</h5>
   </td>
   <td style="float:right;">
       <button id="button" class="wb"  type="submit"><a href="{% url 'users:update' %}"> Edit profile</a> </button><!-- button to edit profile -->
@@ -304,8 +304,8 @@
 <div class="left-side-mobile" style="display:none;">
 
               <div class="pb-container" style="padding:0;"><!-- main content starts here -->
-                <h1 style="margin-bottom:0;">{{ object.username }}</h1>
-                <h5>graphic designer</h5>
+                <h1 style="margin-bottom:0;">{{ object.name }}</h1>
+                <h5>{{ object.job_title }}</h5>
                 <a style="font-size:13px;" href="#">Edit Profile</a>
 
                 <p>Main Description</p>
@@ -342,7 +342,7 @@
           <table class="p-header">
           <td id="p-h-l"><div class="p-author">
             <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
-            <div id="p-a-name">{{ object.username }}</div>
+            <div id="p-a-name">{{ object.name }}</div>
           </div>
           </td>
           <td id="p-h-m"><button class="follow-b" type="button" name="submit" id="button">Follow</button></td>
@@ -369,7 +369,7 @@
           <table class="p-header">
           <td id="p-h-l"><div class="p-author">
             <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
-            <div id="p-a-name">{{ object.username }}</div>
+            <div id="p-a-name">{{ object.name }}</div>
           </div>
           </td>
           <td id="p-h-m"><button class="follow-b" type="button" name="submit" id="button">Follow</button></td>
