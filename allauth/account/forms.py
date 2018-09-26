@@ -69,7 +69,7 @@ class PasswordField(forms.CharField):
         render_value = kwargs.pop('render_value',
                                   app_settings.PASSWORD_INPUT_RENDER_VALUE)
         kwargs['widget'] = forms.PasswordInput(render_value=render_value,
-                                               attrs={'placeholder': kwargs.get("label"), 'placeholder': _(''), 'class': "li-m", 'type': "password", 'name': "password"})
+                                               attrs={'placeholder': kwargs.get("label"), 'placeholder': _(''), 'class': "li-ma", 'type': "password", 'name': "password"})
         super(PasswordField, self).__init__(*args, **kwargs)
 
 
@@ -106,7 +106,7 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(LoginForm, self).__init__(*args, **kwargs)
-        password_widget = forms.TextInput(attrs={'placeholder': _(''), 'class': "li-m", 'type': "password", 'name': "password"})
+        password_widget = forms.TextInput(attrs={'placeholder': _(''), 'class': "li-ma", 'type': "password", 'name': "password"})
         password_field = PasswordField(label=_(""), widget=password_widget)
         if app_settings.AUTHENTICATION_METHOD == AuthenticationMethod.EMAIL:
             login_widget = forms.TextInput(attrs={'type': 'email',
@@ -118,7 +118,7 @@ class LoginForm(forms.Form):
         elif app_settings.AUTHENTICATION_METHOD \
                 == AuthenticationMethod.USERNAME:
             login_widget = forms.TextInput(attrs={'placeholder':
-                                                  _(''), 'class': "li-m", 'type': "username", 'name': "username"})
+                                                  _(''), 'class': "li-ma", 'type': "username", 'name': "username"})
             login_field = forms.CharField(
                 label=_(""),
                 widget=login_widget,
