@@ -338,7 +338,45 @@
 </div>
 
           <!-- POST--------------------------------------------------------------->
+          {% for article in articles %}
           <div class="post">
+              <table class="p-header">
+                  <td id="p-h-l">
+                      <div class="p-author">
+                        <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                        <div id="p-a-name"><a href="{% url 'users:detail' article.user.username %}">{{ article.user.get_profile_name|title }}</a></div>
+                      </div>
+                  </td>
+                  <td id="p-h-m"><button class="follow-b" type="button" name="submit" id="button">Follow</button></td>
+                  <td id="p-h-r"><div id="p-time"><img src="{% static 'img/Clock.png' %}"> {{ article.timestamp|naturaltime }}
+                  <div id="p-menu"><svg width="3" height="15" viewBox="0 0 3 15"><path d="M0 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 7.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 13.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0"></path></svg></div>
+                  <div id="p-m" style="display:none;"><ul><li>Report abusive content</li><li>Report irrelevant content</li></ul></div>
+                  </div></td>
+              </table>
+              <div class="p-bottom">
+                  <h3 id="p-title">{{ article.title|title }}</h3>
+                  <p id="p-content">{{ article.get_markdown|safe|truncatechars:150 }}</p>
+                  {% thumbnail article.image "750x300" as im %}
+                  <img id="p-img" src="{{ im.url }}" alt="{% trans 'Featured Image' %}">
+                  {% empty %}
+                  <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+                  {% endthumbnail %}
+                  <div class="p-footer">
+                  <div id="p-like"><span></span> 4k</div>
+                  <div id="p-comment"><span></span> 34</div>
+                  <button class="p-share" type="button" name="submit" id="button">SHARE</button>
+                  <a href="{% url 'articles:article' article.slug %}" class="p-bti">{% trans 'Back this idea' %} &rarr;</a>
+                  <!--<button class="p-bti" type="button" name="submit" id="button">Back this idea</button>-->
+              </div>
+              </div>
+          </div>
+              {% empty %}
+          <h4 class="no-data">{% trans 'There is no published article yet' %}. <a href="{% url 'articles:write_new' %}">{% trans 'Be the first one to publish one' %}!</a></h4>
+          {% endfor %}
+
+
+          <!-- POST--------------------------------------------------------------->
+          <!--<div class="post">
           <table class="p-header">
           <td id="p-h-l"><div class="p-author">
             <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
@@ -388,7 +426,7 @@
           <button class="p-bti" type="button" name="submit" id="button">Back this idea</button>
           </div>
           </div>
-          </div>
+          </div>-->
 
 
       </td>
