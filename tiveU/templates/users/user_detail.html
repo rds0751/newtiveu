@@ -339,6 +339,7 @@
 
           <!-- POST--------------------------------------------------------------->
           {% for article in articles %}
+            {% if article.user.get_profile_name == object.name %}
           <div class="post">
               <table class="p-header">
                   <td id="p-h-l">
@@ -370,6 +371,7 @@
               </div>
               </div>
           </div>
+            {% endif%}
               {% empty %}
           <h4 class="no-data">{% trans 'There is no published article yet' %}. <a href="{% url 'articles:write_new' %}">{% trans 'Be the first one to publish one' %}!</a></h4>
           {% endfor %}
