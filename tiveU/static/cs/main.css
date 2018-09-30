@@ -490,7 +490,6 @@ input:checked + .slider:before {
 #p-time {
   display:table;
   border-collapse:separate;
-  width:120px;
   height:20px;
   float: right;
 }
