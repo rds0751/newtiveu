@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
+from tiveU.articles.models import Article
 
 from .models import User
 
@@ -11,6 +12,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['articles'] = Article.objects.all()
+        return context
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
