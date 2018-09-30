@@ -27,8 +27,23 @@
         <ul class="menu"><!-- Menu starts here-->
           <li id="home-b"><img src="{% static 'img/home2.png' %}"></li><!-- home button-->
           <li id="notificaion-b"><img src="{% static 'img/bell2.png' %}"></li><!-- notificaion button-->
-          <li><div id="pfp" class="nav-pfp"></div></li><!-- SYNTAX pfp="profile picture",nav-pfp="profile picture inside the navigation" -->
-          <li><div id="nav-name">{{ object.name }}</div></li><!-- SYNTAX nav-name="full name of the user"-->
+          <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {% thumbnail request.user.picture "x30" as im %}
+                        <img src="{{ im.url }}" style="border-radius: 50%;" alt="{% trans 'User Image' %}" class="user-image">
+                      {% empty %}
+                        <img src="{% static 'img/user.png' %}" height="30px" alt="{% trans 'No Profile Picture' %}" />
+                      {% endthumbnail %}
+                      {{ request.user.username }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'users:detail' request.user.username  %}"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i>&nbsp; {% trans 'Profile Settings' %}</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp; {% trans "Log Out" %}</a>
+                    </div>
+          </li>
+          <!--<li><div id="pfp" class="nav-pfp"></div></li><!-- SYNTAX pfp="profile picture",nav-pfp="profile picture inside the navigation" -->
+          <!--<li><div id="nav-name">{{ user.name }}</div></li><!-- SYNTAX nav-name="full name of the user"-->
         </ul><!-- Menu ends here-->
 
         <div class="search"><!-- Search inside top bar starts here-->
