@@ -15,8 +15,17 @@
 <div class="cover-photo"></div><!-- Cover photo uploaded by user -->
 
 <div class="container"><!-- main content starts here -->
-  <div id="pfp" class="big-pfp"></div><!-- SYNTAX big-pfp="profile picture shown in normal size" -->
-  <div id="edit-links" style="width:100%;padding:10px;padding-left:120px;">
+
+              <div >
+              {% thumbnail request.user.picture "x30" as im %}
+                        <img class="big-pfp" src="{{ im.url }}"  alt="{% trans 'User Image' %}" >
+                      {% empty %}
+                        <img class="big-pfp" src="{% static 'img/avatar1.png' %}" alt="{% trans 'No Profile Picture' %}" />
+              {% endthumbnail %}
+            </div><!-- SYNTAX pfp="profile picture",nav-pfp="profile picture inside the navigation" -->
+
+
+    <div id="edit-links" style="width:100%;padding:10px;padding-left:120px;">
 
 <table id="web-p-des" style="width:100%;"><!-- Profile description on web version-->
   <td>
@@ -286,6 +295,7 @@
               height: 90px;
               margin:0 auto;
               margin-top:-30px;
+              display:block;
             }
             #edit-links{
               display:none;

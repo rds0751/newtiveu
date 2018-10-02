@@ -11,7 +11,13 @@
 <div class="cover-photo"></div><!-- Cover photo uploaded by user -->
 
 <div class="container" style="padding-bottom:50px;"><!-- main content starts here -->
-  <div id="pfp" class="big-pfp"></div><!-- SYNTAX big-pfp="profile picture shown in normal size" -->
+              <div >
+              {% thumbnail request.user.picture "x30" as im %}
+                        <img class="big-pfp" src="{{ im.url }}"  alt="{% trans 'User Image' %}" >
+                      {% empty %}
+                        <img class="big-pfp" src="{% static 'img/avatar1.png' %}" alt="{% trans 'No Profile Picture' %}" />
+              {% endthumbnail %}
+              </div><!-- SYNTAX pfp="profile picture",nav-pfp="profile picture inside the navigation" -->
   <table id="edit-links" style="width:100%;padding:10px;"><!-- table containing links to edit pfp and cover-photo starts here -->
     <td id="e-l-l"><a href="#">Change profile picture</a></td>
     <td id="e-l-r"><a href="#">Change cover photo</a></td>
@@ -141,6 +147,7 @@
       height: 90px;
       margin:0 auto;
       margin-top:30px;
+      display:block;
     }
 
     #e-l-l {

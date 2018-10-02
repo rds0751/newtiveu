@@ -20,7 +20,13 @@
 
           <div class="pro-box"><!-- box showing own profile starts here-->
             <div class="pb-cover-photo"></div><!-- Cover photo uploaded by user -->
-            <div id="pfp" class="pb-big-pfp"></div><!-- SYNTAX big-pfp="profile picture shown in normal size" -->
+              <div >
+              {% thumbnail request.user.picture "x30" as im %}
+                        <img class="pb-big-pfp" src="{{ im.url }}"  alt="{% trans 'User Image' %}" >
+                      {% empty %}
+                        <img class="pb-big-pfp" src="{% static 'img/avatar1.png' %}" alt="{% trans 'No Profile Picture' %}" />
+              {% endthumbnail %}
+              </div><!-- SYNTAX pfp="profile picture",nav-pfp="profile picture inside the navigation" -->
             <div class="pb-container"><!-- main content starts here -->
               <h3>{{ user.name }}</h3>
               <h5>{{ user.job_title }}</h5>
