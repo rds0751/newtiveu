@@ -3,38 +3,159 @@
 {% load crispy_forms_tags %}
 {% load thumbnail %}
 
-{% block title %}{{ user.username|title }}{% endblock %}
+{% block title %}{{ user.username|title }}{% endblock title %}
 
-{% block head %}
-  <link href="{% static 'css/user_form.css' %}?v=1" rel="stylesheet">
-{% endblock head %}
 
 {% block content %}
 
-  <div class="row profile">
-    <div class="col-md-4 user-profile">
-      <h1>{{ user.username|title }}</h1>
-      {% if user.name %}<p class="lead">{{ user.name }}</p>{% endif %}
-      {% if user.picture %}
-        {% thumbnail user.picture "x250" as im %}
-          <img src="{{ im.url }}" alt="Picture Profile" id="pic">
-        {% endthumbnail %}
-      {% else %}
-        <img src="{% static 'img/user.png' %}" alt="No Profile Picture" />
-      {% endif %}
-    </div>
+<div class="cover-photo"></div><!-- Cover photo uploaded by user -->
 
-    <div class="col-md-8">
-      <form enctype="multipart/form-data" class="form-horizontal" method="post" action="{% url 'users:update' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <div class="control-group">
-          <div class="controls">
-            <button type="submit" class="btn btn-dark">{% trans 'Update Profile' %}</button>
+<div class="container" style="padding-bottom:50px;"><!-- main content starts here -->
+  <div id="pfp" class="big-pfp"></div><!-- SYNTAX big-pfp="profile picture shown in normal size" -->
+  <table id="edit-links" style="width:100%;padding:10px;"><!-- table containing links to edit pfp and cover-photo starts here -->
+    <td id="e-l-l"><a href="#">Change profile picture</a></td>
+    <td id="e-l-r"><a href="#">Change cover photo</a></td>
+  </table><!-- table containing links to edit pfp and cover-photo ends here -->
+
+<div class="setting-c" style="width:100%;padding-top:80px;"><!-- Main content starts here -->
+    <form action="" id="profile_details">
+        <p>Name</p>
+          <input type="text" name="name"><br>
+        <p>Username</p>
+          <input type="text" name="username"><br>
+        <p>Bio</p>
+          <input type="text" name="bio"><br>
+        <p>Occupation</p>
+          <input type="text" name="occupation"><br>
+        <p>Qualifications</p>
+          <input type="text" name="qualifications"><br>
+      <h3>Personal Info</h3>
+        <p>Email Address</p>
+          <input type="text" name="email"><br>
+        <p>Phone</p>
+          <input type="text" name="phone"><br>
+        <p>Gender</p>
+          <select name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Not Listed</option>
+            <option value="none">Prefer not to specify</option>
+          </select><br>
+      <h3>Hobbies</h3>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">design</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">photography</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">branding</div></div>
+      <h3>Places of Interest</h3>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">Paris,France</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">London,UK</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">Brooklyn,NY</div></div>
+      <h3>Likes/Things I Like</h3>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">opera/theatre</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">summer</div></div>
+      <h3>Dislikes/Things I don't Like</h3>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">bulling</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">racism</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">PDA</div></div>
+      <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">crowded places</div></div>
+
+          <div class="b bb_ settingsb"><!-- SYNTAX b="button",wb_="white button inside",homesignupb="signup button on home page" -->
+            <button id="button" class="bb" type="button" name="button" >Sign up</button>
           </div>
-        </div>
-      </form>
-    </div>
-  </div>
 
-{% endblock %}
+    </form>
+</div><!--content ends here-->
+</div>
+{% endblock content %}
+
+{% block javascript %}
+
+<style>
+@media only screen and (max-width: 955px) {
+    #web-version {
+      display:none;
+    }
+    #mobile-version {
+      display:block;
+    }
+    .web-nav,#feed-l,.uploadpost {
+      display:none;
+    }
+    .mobile-nav,.close-m-search svg,.m-search {
+      display:block;
+    }
+    .main-l-c{
+      width:100%;
+    }
+    .main-r-c{
+      width:100%;
+    }
+    .searches {
+      height:100%;
+      margin-bottom:50px;
+      margin-top:0;
+      margin-left:0;
+      width:100%;
+      z-index:1;
+      box-shadow: none;
+    }
+    #profile_details input,select{
+      margin:0 15px;
+      }
+    .notifications {
+      width:100%;
+      height:100%;
+      box-shadow: none;
+      z-index:1;
+      margin:0;
+      left: 50%;
+      transform: translate(-50%, 0);
+
+    }
+
+    #t-not {
+      position: relative;
+    }
+    #not{
+      width:200px;
+    }
+
+    .feed {
+      padding-top:0px;
+      padding-bottom: 50px;
+    }
+    .post{
+      max-width: none;
+    }
+    .p-bottom {
+    margin-left: 0px;
+    }
+    .cover-photo {
+      display:none;
+    }
+    .big-pfp {
+      position: relative;
+      background-size: 90px;
+      width: 90px;
+      height: 90px;
+      margin:0 auto;
+      margin-top:30px;
+    }
+
+    #e-l-l {
+      width:100%;
+      padding-left: 0px;
+      text-align: center;
+    }
+    #e-l-r{
+      display: none;
+    }
+    .setting-c{
+      width:100%;
+    }
+}
+
+</style>
+
+{% endblock javascript %}

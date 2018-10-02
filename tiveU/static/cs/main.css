@@ -446,8 +446,7 @@ input:checked + .slider:before {
 #p-title {
   font-family: MetropolisBold;
 }
-#p-h-m,#p-h-r{
-  min-width:120px;
+
 }
 #p-h-l{
   width:125px;
@@ -490,7 +489,6 @@ input:checked + .slider:before {
 #p-time {
   display:table;
   border-collapse:separate;
-  width:120px;
   height:20px;
   float: right;
 }

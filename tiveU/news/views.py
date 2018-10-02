@@ -10,6 +10,7 @@ from django.views.generic import ListView, DeleteView
 from tiveU.helpers import ajax_required, AuthorRequiredMixin
 from tiveU.news.models import News
 
+from tiveU.articles.models import Article
 
 class NewsListView(LoginRequiredMixin, ListView):
     """A really simple ListView, with some JS magic on the UI."""
@@ -18,6 +19,11 @@ class NewsListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self, **kwargs):
         return News.objects.filter(reply=False)
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsListView, self).get_context_data(**kwargs)
+        context['articles'] = Article.objects.all()
+        return context
 
 
 class NewsDeleteView(LoginRequiredMixin, AuthorRequiredMixin, DeleteView):

@@ -1,89 +1,301 @@
 {% extends "base.html" %}
-{% load static i18n %}
-{% load thumbnail %}
+{% load static i18n thumbnail %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
 
-{% block title %}{{ object.username }}{% endblock %}
 
-{% block head %}
-  <link href="{% static 'css/user_profile.css' %}?v=1" rel="stylesheet">
-{% endblock head %}
+{% block title %}
+    {{ object.username }}
+{% endblock title %}
 
-{% block content %}
+    {% block content %}
+
+
+
+<div class="cover-photo"></div><!-- Cover photo uploaded by user -->
+
+<div class="container"><!-- main content starts here -->
+  <div id="pfp" class="big-pfp"></div><!-- SYNTAX big-pfp="profile picture shown in normal size" -->
+  <div id="edit-links" style="width:100%;padding:10px;padding-left:120px;">
+
+<table id="web-p-des" style="width:100%;"><!-- Profile description on web version-->
+  <td>
+    <h1>{{ object.name }}</h1>
+    <h5>{{ object.job_title }}</h5>
+  </td>
+  <td style="float:right;">
+      <button id="button" class="wb"  type="submit"><a href="{% url 'users:update' %}"> Edit profile</a> </button><!-- button to edit profile -->
+  </td>
+</table>
+
+  </div><!-- table containing links to edit pfp and cover-photo ends here -->
+</div>
+
+<div class="feed"><!-- main feed starts here -->
   <div class="container">
+    <table>
+      <td id="feed-l"><!-- left side of the feed -->
 
-    {% thumbnail object.picture "x250" as im %}
-      <img src="{{ im.url }}" alt="Picture Profile" id="pic">
-    {% empty %}
-      <img class="pull-right" src="{% static 'img/user.png' %}" height="250px" alt="No Profile Picture" />
-    {% endthumbnail %}
 
-    <div id="contact-info" class="vcard">
-        <h1 class="fn">
-          {{ object.username|title }}
-          {% if object.short_bio %}
-            <br /><small style="font-size: 50%">{{ object.short_bio }}</small>
-          {% endif %}
-        </h1>
-        <p>
-          <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-          {{ object.get_profile_name|title }}
-          <br />
-          <i class="fa fa-envelope" aria-hidden="true"></i><a class="email" href="mailto:{{ object.email }}">   {{ object.email }}</a><br />
-          {% if object.job_title %}
-            <i class="fa fa-briefcase" aria-hidden="true"></i>  {{ object.job_title }} <br />
-          {% endif %}
-          {% if object.location %}
-            <i class="fa fa-map-marker" aria-hidden="true"></i>  {{ object.location }} <br />
-          {% endif %}
-        </p>
-    </div>
-    <div id="objective"><p>{{ object.bio }}</p></div>
-    <div class="clear"></div>
-    {% if object.personal_url %}
-      <a href="{{ object.personal_url }}" style="font-size: 2em" title="{% trans 'RSS Channel' %}"><i class="fa fa-rss"></i>  </a>
-    {% endif %}
-    {% if object.twitter_account %}
-      <a href="{{ object.twitter_account }}" style="font-size: 2em" title="{% trans 'Twitter Profile' %}"><i class="fa fa-twitter"></i>  </a>
-    {% endif %}
-    {% if object.github_account %}
-      <a href="{{ object.github_account }}" style="font-size: 2em" title="{% trans 'Github Profile' %}"><i class="fa fa-github"></i>  </a>
-    {% endif %}
-    {% if object.linkedin_account %}
-      <a href="{{ object.linkedin_account }}" style="font-size: 2em" title="{% trans 'LinkedIn Profile' %}"><i class="fa fa-linkedin"></i>  </a>
-    {% endif %}
-    {% if object.facebook_account %}
-      <a href="{{ object.facebook_account }}" style="font-size: 2em" title="{% trans 'Facebook Profile' %}"><i class="fa fa-facebook"></i>  </a>
-    {% endif %}
-    <a class="btn btn-dark pull-right" href="{% url 'users:update' %}">{% trans 'Update Profile' %}</a>
-  </div>
-  {% if request.user.username == object.username %}
-    <!-- Data tiles -->
-    <div class="row tile_count">
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-envelope"></i> {% trans 'Feeds' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-pencil"></i> {% trans 'Articles' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-comment"></i> {% trans 'Comments' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-question-sign"></i> {% trans 'Questions' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-education"></i> {% trans 'Answers' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-fire"></i> {% trans 'Global Interactions' %}</span>
-        <div class="count">0</div>
-      </div>
-    </div>
-    <!-- /data tiles -->
-  {% endif %}
-{% endblock content %}
+            <div class="pb-container"><!-- main content starts here -->
+              <p>Main Description</p>
+              <table style="width:100%;">
+                <td>24k <br><span>Following</span></td>
+                <td>789 <br><span>Followers</span></td>
+                <td>456 <br><span>Ideas</span> </td>
+              </table>
+            </div><!-- main content ends here -->
+            <h3>Hobbies</h3>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">design</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">photography</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">branding</div></div>
+            <h3>Places of Interest</h3>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">Paris,France</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">London,UK</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">Brooklyn,NY</div></div>
+            <h3>Likes/Things I Like</h3>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">opera/theatre</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">summer</div></div>
+            <h3>Dislikes/Things I don't Like</h3>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">bulling</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">racism</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">PDA</div></div>
+            <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">crowded places</div></div>
+
+
+
+
+        </td><!-- left side of the feed ends here-->
+        <td id="feed-r"><!-- right side of the feed-->
+
+
+          <div class="uploadpost"><!-- box of form to upload post starts here-->
+            <form action="#" id="uploadpostform">
+              <div class="up-title"><textarea type="text" form="uploadpostform" placeholder="What are you upto today?" name="post-title"></textarea></div>
+              <div class="up-body"><textarea type="text" form="uploadpostform" name="post-body"></textarea></div>
+              <div class="siema" ><!-- draggable categories -->
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">design</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">photography</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">branding</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">UX Design</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">journalism</div></div>
+              </div><!-- draggable categories ends here -->
+            <table style="width:100%;padding-top:9px;"><!-- bottom bar of the box of form to upload post-->
+                <td class="up-b-l"><!-- left side of the bottom bar-->
+                    <table id="up-b-share">
+                        <td style="width:140px;">You can also add:</td>
+                        <!-- button to upload picture along with post -->
+                        <td id="up-b-picture"><svg width="18" height="15" viewBox="0 0 16 13"><path d="M9.3 7.1l-.7-.7c.1-.1.2-.2.6-.5.9-.8.9-2.2.1-3l-.1-.1c-.8-.8-2.3-.8-3.1.1L1.6 7.3c-.9.9-.9 2.3 0 3.1l.2.2c.8.8 2 .8 2.8.1l.7.7c-1.2 1.1-3 1-4.2-.1l-.2-.2C-.3 9.9-.3 7.8.9 6.6l4.4-4.4C6.6.9 8.6.9 9.9 2.2l.1.1c1.2 1.3 1.1 3.2-.1 4.4-.3.2-.5.4-.6.4z"></path><path d="M6.8 4.7l.7.7-.7.7c-.9.9-.9 2.3 0 3.2.9.9 2.3.9 3.1 0l4.5-4.5c.9-.9.9-2.3 0-3.1l-.1-.1c-.7-.7-1.9-.7-2.7 0l-.1.1-.8-.7.1-.1c1.1-1.1 3-1.1 4.1 0l.2.1c1.2 1.2 1.2 3.3 0 4.5L10.6 10c-1.2 1.2-3.3 1.2-4.5 0-1.3-1.3-1.3-3.3 0-4.5l.7-.8z"></path></svg></td>
+                        <!-- button to attach people along with post-->
+                        <td id="up-b-people"><svg width="20" height="20" viewBox="0 0 16 16"><path d="M4 13.7c1.1.8 2.5 1.3 4 1.3s2.9-.5 4-1.3v-1.2c0-.8-.7-1.5-1.5-1.5h-5c-.8 0-1.5.7-1.5 1.5v1.2zm-1-.8v-.4C3 11.1 4.1 10 5.5 10h5c1.4 0 2.5 1.1 2.5 2.5v.4c1.2-1.3 2-3 2-4.9 0-3.9-3.1-7-7-7S1 4.1 1 8c0 1.9.8 3.6 2 4.9zM8 16c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"></path><path d="M8 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 1C6.3 9 5 7.7 5 6s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"></path></svg></td>
+                        <!-- button to attach location with post-->
+                        <td id="up-b-location"><svg width="20" height="20" viewBox="0 0 18 18"><path d="M9 0c.3 0 .6.3.6.6v2.5c0 .3-.3.6-.6.6s-.6-.3-.6-.6V.6c0-.3.3-.6.6-.6zm0 14.4c.3 0 .6.3.6.6v2.5c0 .3-.3.6-.6.6s-.6-.3-.6-.6V15c0-.4.3-.6.6-.6zM14.4 9c0-.3.3-.6.6-.6h2.5c.2.1.5.3.5.6s-.3.6-.6.6h-2.5c-.3 0-.5-.3-.5-.6zM0 9c0-.3.3-.6.6-.6h2.5c.3 0 .6.3.6.6s-.3.6-.6.6H.6C.3 9.6 0 9.3 0 9zm2.1-6.6c.2-.2.6-.2.8 0l1.8 1.8c.2.2.2.6 0 .8-.2.2-.6.2-.8 0L2.1 3.2c-.2-.2-.2-.6 0-.8zm11 2.6c-.2-.2-.2-.6 0-.8l1.8-1.8c.2-.2.6-.2.8 0 .2.2.2.6 0 .8L13.9 5c-.2.2-.6.2-.8 0zm2.6 10.7c-.2.2-.6.2-.8 0l-1.8-1.8c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l1.8 1.8c.2.2.2.6 0 .8zm-11-2.6c.2.2.2.6 0 .8l-1.8 1.8c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8l1.8-1.8c.2-.2.6-.2.8 0zM5 9a4 4 0 1 1 8 0 4 4 0 1 1-8 0"></path></svg></td>
+                    </table>
+                </td><!-- left side of the bottom bar ends here-->
+                <td class="up-b-r"><!-- right side of the bottom bar-->
+                  <table>
+                        <td>Up for backing:</td>
+                        <td><!-- checkbox for backup -->
+                          <label class="switch">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                          </label>
+                        </td><!-- checkbox for backup ends here-->
+                        <td><button id="button" class="bb" type="submit">POST</button></td><!-- button to submit post -->
+                  </table>
+                </td><!-- right side of the bottom bar ends here -->
+              </table><!-- bottom bar ends here -->
+
+              <div class="up-picture">
+              <p>Attach a picture</p>
+              <input type="file" name="fileToUpload" id="fileToUpload">
+              </div>
+              <div class="up-people">
+              <p>Link people</p>
+              <input type="text" name="peopleToUpload" id="peopleToUpload">
+              </div>
+              <div class="up-location">
+              <p>Attach a location</p>
+              <input type="text" name="locationToUpload" id="locationToUpload">
+              </div>
+            </form>
+      </div><!-- box of form to upload post ends here-->
+
+<div class="left-side-mobile" style="display:none;">
+
+              <div class="pb-container" style="padding:0;"><!-- main content starts here -->
+                <h1 style="margin-bottom:0;">{{ object.name }}</h1>
+                <h5>{{ object.job_title }}</h5>
+                <a style="font-size:13px;" href="#">Edit Profile</a>
+
+                <p>Main Description</p>
+                <table style="width:100%;">
+                  <td>24k <br><span>Following</span></td>
+                  <td>789 <br><span>Followers</span></td>
+                  <td>456 <br><span>Ideas</span> </td>
+                </table>
+              </div><!-- main content ends here -->
+              <h3>Hobbies</h3>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">design</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">photography</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">branding</div></div>
+              <h3>Places of Interest</h3>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">Paris,France</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">London,UK</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">Brooklyn,NY</div></div>
+              <h3>Likes/Things I Like</h3>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">opera/theatre</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">summer</div></div>
+              <h3>Dislikes/Things I don't Like</h3>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">bulling</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">racism</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">PDA</div></div>
+              <div class="pretty p-switch p-fill"><input type="checkbox"disabled><div class="state"><label></label></div><div class="categoryname">crowded places</div></div>
+
+
+                </div>
+
+          <!-- POST--------------------------------------------------------------->
+          {% for article in articles %}
+            {% if article.user.get_profile_name == object.name %}
+          <div class="post">
+              <table class="p-header">
+                  <td id="p-h-l">
+                      <div class="p-author">
+                        <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                        <div id="p-a-name"><a href="{% url 'users:detail' article.user.username %}">{{ article.user.get_profile_name|title }}</a></div>
+                      </div>
+                  </td>
+                  <td id="p-h-m"><button class="follow-b" type="button" name="submit" id="button">Follow</button></td>
+                  <td id="p-h-r"><div id="p-time"><img src="{% static 'img/Clock.png' %}"> {{ article.timestamp }}
+                  <div id="p-menu"><svg width="3" height="15" viewBox="0 0 3 15"><path d="M0 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 7.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 13.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0"></path></svg></div>
+                  <div id="p-m" style="display:none;"><ul><li>Report abusive content</li><li>Report irrelevant content</li></ul></div>
+                  </div></td>
+              </table>
+              <div class="p-bottom">
+                  <h3 id="p-title">{{ article.title|title }}</h3>
+                  <p id="p-content">{{ article.get_markdown|safe|truncatechars:150 }}</p>
+                  {% thumbnail article.image "750x300" as im %}
+                  <img id="p-img" src="{{ im.url }}" alt="{% trans 'Featured Image' %}">
+                  {% empty %}
+                  <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+                  {% endthumbnail %}
+                  <div class="p-footer">
+                  <div id="p-like"><span></span> 4k</div>
+                  <div id="p-comment"><span></span> 34</div>
+                  <button class="p-share" type="button" name="submit" id="button">SHARE</button>
+                  <a href="{% url 'articles:article' article.slug %}" class="p-bti">{% trans 'Back this idea' %} &rarr;</a>
+                  <!--<button class="p-bti" type="button" name="submit" id="button">Back this idea</button>-->
+              </div>
+              </div>
+          </div>
+            {% endif%}
+              {% empty %}
+          <h4 class="no-data">{% trans 'There is no published article yet' %}. <a href="{% url 'articles:write_new' %}">{% trans 'Be the first one to publish one' %}!</a></h4>
+          {% endfor %}
+
+
+
+              </td>
+            </table>
+          </div>
+        </div>
+    {% endblock content %}
+
+    {% block javascript %}
+
+        <style>
+        #edit-links h1{
+          padding-left:10px;
+        }
+        #edit-links h5{
+          padding-left:12px;
+          margin-top:-12px;
+        }
+        .feed {
+          padding-top:0px;
+          padding-bottom: 50px;
+        }
+        @media only screen and (max-width: 955px) {
+            #web-version {
+              display:none;
+            }
+            #mobile-version {
+              display:block;
+            }
+            .web-nav,#feed-l,.uploadpost {
+              display:none;
+            }
+            .mobile-nav,.close-m-search svg,.m-search {
+              display:block;
+            }
+            .main-l-c{
+              width:100%;
+            }
+            .main-r-c{
+              width:100%;
+            }
+            .searches {
+              height:100%;
+              margin-bottom:50px;
+              margin-top:0;
+              width:100%;
+              z-index:1;
+              box-shadow: none;
+            }
+            .notifications {
+              width:100%;
+              height:100%;
+              box-shadow: none;
+              z-index:1;
+              margin:0;
+              left: 50%;
+              transform: translate(-50%, 0);
+
+            }
+
+            #t-not {
+              position: relative;
+            }
+            #not{
+              width:200px;
+            }
+
+            .feed {
+              padding-top:0px;
+              padding-bottom: 50px;
+            }
+            .post{
+              max-width: none;
+            }
+            .p-bottom {
+            margin-left: 0px;
+            }
+            .cover-photo {
+              height:100px;
+            }
+            .big-pfp {
+              position: relative;
+              background-size: 90px;
+              width: 90px;
+              height: 90px;
+              margin:0 auto;
+              margin-top:-30px;
+            }
+            #edit-links{
+              display:none;
+            }
+            .left-side-mobile {
+              display: block!important;
+            }
+        }
+
+        </style>
+    {% endblock javascript %}
+
+

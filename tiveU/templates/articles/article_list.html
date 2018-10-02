@@ -1,100 +1,311 @@
-{% extends 'base.html' %}
-{% load static i18n %}
-{% load humanize thumbnail %}
+{% extends "base.html" %}
+{% load humanize %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
 
-{% block title %} {% trans 'Articles' %} {% endblock %}
+{% block title %}
+    Articles
+{% endblock title %}
+    {% block content %}
 
-{% block head %}
 
-{% endblock head %}
-
-{% block content %}
-
-  <!-- Page Content -->
+<div class="feed"><!-- main feed starts here -->
   <div class="container">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'news:list' %}">{% trans 'Home' %}</a></li>
-        <li class="breadcrumb-item active"><a href="{% url 'articles:list' %}">{% trans 'Articles' %}</a></li>
-      </ol>
-    </nav>
-    <div class="row">
-      <!-- Blog Entries Column -->
-      <div class="col-md-8">
-        {% for article in articles %}
-          <!-- Blog Post -->
-          <div class="card mb-4">
-            {% thumbnail article.image "750x300" as im %}
-              <img src="{{ im.url }}" alt="{% trans 'Featured Image' %}" class="card-img-top">
-            {% empty %}
-              <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-            {% endthumbnail %}
-            <div class="card-body">
-              <h2 class="card-title">{{ article.title|title }}</h2>
-              <p class="card-text">{{ article.get_markdown|safe|truncatechars:150 }}</p>
-              <a href="{% url 'articles:article' article.slug %}" class="btn btn-primary">{% trans 'Read More' %} &rarr;</a>
-            </div>
-            <div class="card-footer text-muted">
-              {% trans 'Posted' %} {{ article.timestamp|naturaltime }}
-              <i class="lead fa fa-user"></i>
-              <a href="{% url 'users:detail' article.user.username %}">{{ article.user.get_profile_name|title }}</a>
-              {% for tag in article.tags.names %}
-                <a href="#">{{ tag }}</a>
-              {% endfor %}
-            </div>
+    <table>
+      <td id="feed-l"><!-- left side of the feed -->
+
+
+          <div class="pro-box"><!-- box showing own profile starts here-->
+            <div class="pb-cover-photo"></div><!-- Cover photo uploaded by user -->
+            <div id="pfp" class="pb-big-pfp"></div><!-- SYNTAX big-pfp="profile picture shown in normal size" -->
+            <div class="pb-container"><!-- main content starts here -->
+              <h3>{{ user.name }}</h3>
+              <h5>{{ user.job_title }}</h5>
+              <table style="width:100%;">
+                <td>24k <br><span>Following</span></td>
+                <td>789 <br><span>Followers</span></td>
+                <td>456 <br><span>Ideas</span> </td>
+              </table>
+            </div><!-- main content ends here -->
+          </div><!-- box showing own profile ends here -->
+
+
+
+          <div class="friends"><!-- box containing list of friends starts here-->
+            <ul>
+            <li><h2>Friends</h2></li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li>
+              <table style="width:100%;">
+                <td id="f-l">
+                  <div class="p-author">
+                    <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                    <div id="p-a-name">{{ user.name }}</div>
+                  </div>
+                </td>
+                <td id="f-r">23 min</td>
+              </table>
+            </li>
+            <li style="text-align:center;">See All</li>
+          <ul>
+          </div><!-- box containing list of friends ends here -->
+
+        </td><!-- left side of the feed ends here-->
+        <td id="feed-r"><!-- right side of the feed-->
+
+
+          <div class="uploadpost"><!-- box of form to upload post starts here-->
+            <form action="{% url 'articles:write_new' %}" enctype="multipart/form-data"  id="article-form" method="post" role="form">
+              {% csrf_token %}
+              <div class="up-title"><textarea type="text" form="uploadpostform" placeholder="What are you upto today?" name="post-title"></textarea></div>
+              <div class="up-body"><textarea type="text" form="uploadpostform" name="post-body"></textarea></div>
+              <div class="siema" ><!-- draggable categories -->
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">design</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">photography</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">visual arts</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">branding</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">UX Design</div></div>
+                  <div class="pretty p-switch p-fill"><input type="checkbox"><div class="state"><label></label></div><div class="categoryname">journalism</div></div>
+              </div><!-- draggable categories ends here -->
+            <table style="width:100%;padding-top:9px;"><!-- bottom bar of the box of form to upload post-->
+                <td class="up-b-l"><!-- left side of the bottom bar-->
+                    <table id="up-b-share">
+                        <td style="width:140px;">You can also add:</td>
+                        <!-- button to upload picture along with post -->
+                        <td id="up-b-picture"><svg width="18" height="15" viewBox="0 0 16 13"><path d="M9.3 7.1l-.7-.7c.1-.1.2-.2.6-.5.9-.8.9-2.2.1-3l-.1-.1c-.8-.8-2.3-.8-3.1.1L1.6 7.3c-.9.9-.9 2.3 0 3.1l.2.2c.8.8 2 .8 2.8.1l.7.7c-1.2 1.1-3 1-4.2-.1l-.2-.2C-.3 9.9-.3 7.8.9 6.6l4.4-4.4C6.6.9 8.6.9 9.9 2.2l.1.1c1.2 1.3 1.1 3.2-.1 4.4-.3.2-.5.4-.6.4z"></path><path d="M6.8 4.7l.7.7-.7.7c-.9.9-.9 2.3 0 3.2.9.9 2.3.9 3.1 0l4.5-4.5c.9-.9.9-2.3 0-3.1l-.1-.1c-.7-.7-1.9-.7-2.7 0l-.1.1-.8-.7.1-.1c1.1-1.1 3-1.1 4.1 0l.2.1c1.2 1.2 1.2 3.3 0 4.5L10.6 10c-1.2 1.2-3.3 1.2-4.5 0-1.3-1.3-1.3-3.3 0-4.5l.7-.8z"></path></svg></td>
+                        <!-- button to attach people along with post-->
+                        <td id="up-b-people"><svg width="20" height="20" viewBox="0 0 16 16"><path d="M4 13.7c1.1.8 2.5 1.3 4 1.3s2.9-.5 4-1.3v-1.2c0-.8-.7-1.5-1.5-1.5h-5c-.8 0-1.5.7-1.5 1.5v1.2zm-1-.8v-.4C3 11.1 4.1 10 5.5 10h5c1.4 0 2.5 1.1 2.5 2.5v.4c1.2-1.3 2-3 2-4.9 0-3.9-3.1-7-7-7S1 4.1 1 8c0 1.9.8 3.6 2 4.9zM8 16c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"></path><path d="M8 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 1C6.3 9 5 7.7 5 6s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"></path></svg></td>
+                        <!-- button to attach location with post-->
+                        <td id="up-b-location"><svg width="20" height="20" viewBox="0 0 18 18"><path d="M9 0c.3 0 .6.3.6.6v2.5c0 .3-.3.6-.6.6s-.6-.3-.6-.6V.6c0-.3.3-.6.6-.6zm0 14.4c.3 0 .6.3.6.6v2.5c0 .3-.3.6-.6.6s-.6-.3-.6-.6V15c0-.4.3-.6.6-.6zM14.4 9c0-.3.3-.6.6-.6h2.5c.2.1.5.3.5.6s-.3.6-.6.6h-2.5c-.3 0-.5-.3-.5-.6zM0 9c0-.3.3-.6.6-.6h2.5c.3 0 .6.3.6.6s-.3.6-.6.6H.6C.3 9.6 0 9.3 0 9zm2.1-6.6c.2-.2.6-.2.8 0l1.8 1.8c.2.2.2.6 0 .8-.2.2-.6.2-.8 0L2.1 3.2c-.2-.2-.2-.6 0-.8zm11 2.6c-.2-.2-.2-.6 0-.8l1.8-1.8c.2-.2.6-.2.8 0 .2.2.2.6 0 .8L13.9 5c-.2.2-.6.2-.8 0zm2.6 10.7c-.2.2-.6.2-.8 0l-1.8-1.8c-.2-.2-.2-.6 0-.8.2-.2.6-.2.8 0l1.8 1.8c.2.2.2.6 0 .8zm-11-2.6c.2.2.2.6 0 .8l-1.8 1.8c-.2.2-.6.2-.8 0-.2-.2-.2-.6 0-.8l1.8-1.8c.2-.2.6-.2.8 0zM5 9a4 4 0 1 1 8 0 4 4 0 1 1-8 0"></path></svg></td>
+                    </table>
+                </td><!-- left side of the bottom bar ends here-->
+                <td class="up-b-r"><!-- right side of the bottom bar-->
+                  <table>
+                        <td>Up for backing:</td>
+                        <td><!-- checkbox for backup -->
+                          <label class="switch">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                          </label>
+                        </td><!-- checkbox for backup ends here-->
+                        <td><button id="button" class="bb" type="submit">POST</button></td><!-- button to submit post -->
+                  </table>
+                </td><!-- right side of the bottom bar ends here -->
+              </table><!-- bottom bar ends here -->
+
+              <div class="up-picture">
+              <p>Attach a picture</p>
+              <input type="file" name="fileToUpload" id="fileToUpload">
+              </div>
+              <div class="up-people">
+              <p>Link people</p>
+              <input type="text" name="peopleToUpload" id="peopleToUpload">
+              </div>
+              <div class="up-location">
+              <p>Attach a location</p>
+              <input type="text" name="locationToUpload" id="locationToUpload">
+              </div>
+            </form>
+      </div><!-- box of form to upload post ends here-->
+
+
+
+          <!-- POST--------------------------------------------------------------->
+          {% for article in articles %}
+          <div class="post">
+              <table class="p-header">
+                  <td id="p-h-l">
+                      <div class="p-author">
+                        <div class="p-pfp"><img src="{% static 'img/avatar1.png' %}"></div>
+                        <div id="p-a-name"><a href="{% url 'users:detail' article.user.username %}">{{ article.user.get_profile_name|title }}</a></div>
+                      </div>
+                  </td>
+                  <td id="p-h-m"><button class="follow-b" type="button" name="submit" id="button">Follow</button></td>
+                  <td id="p-h-r"><div id="p-time"><img src="{% static 'img/Clock.png' %}"> {{ article.timestamp|naturaltime }}
+                  <div id="p-menu"><svg width="3" height="15" viewBox="0 0 3 15"><path d="M0 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 7.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 13.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0"></path></svg></div>
+                  <div id="p-m" style="display:none;"><ul><li>Report abusive content</li><li>Report irrelevant content</li></ul></div>
+                  </div></td>
+              </table>
+              <div class="p-bottom">
+                  <h3 id="p-title">{{ article.title|title }}</h3>
+                  <p id="p-content">{{ article.get_markdown|safe|truncatechars:150 }}</p>
+                  {% thumbnail article.image "750x300" as im %}
+                  <img id="p-img" src="{{ im.url }}" alt="{% trans 'Featured Image' %}">
+                  {% empty %}
+                  <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+                  {% endthumbnail %}
+                  <div class="p-footer">
+                  <div id="p-like"><span></span> 4k</div>
+                  <div id="p-comment"><span></span> 34</div>
+                  <button class="p-share" type="button" name="submit" id="button">SHARE</button>
+                  <a href="{% url 'articles:article' article.slug %}" class="p-bti">{% trans 'Back this idea' %} &rarr;</a>
+                  <!--<button class="p-bti" type="button" name="submit" id="button">Back this idea</button>-->
+              </div>
+              </div>
           </div>
-        {% empty %}
+              {% empty %}
           <h4 class="no-data">{% trans 'There is no published article yet' %}. <a href="{% url 'articles:write_new' %}">{% trans 'Be the first one to publish one' %}!</a></h4>
-        {% endfor %}
+          {% endfor %}
 
-        {% if is_paginated %}
-          <ul class="pagination justify-content-center mb-4">
-            {% if page_obj.has_previous %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; {% trans 'Newer' %}</a></li>
-            {% else %}
-              <li class="page-item disabled"><a class="page-link" href="#"><span>&larr;</span></a></li>
-            {% endif %}
-            {% for i in paginator.page_range %}
-              {% if page_obj.number == i %}
-                <li class="page-item disabled"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
-              {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-              {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'Older' %} &rarr;</a></li>
-            {% else %}
-              <li class="page-item disabled"><a class="page-link" href="#"><span>&rarr;</span></a></li>
-            {% endif %}
-          </ul>
-        {% endif %}
 
-      </div>
-
-      <!-- Sidebar Widgets Column -->
-      <div class="col-md-4">
-        <!-- Write Article Widget -->
-        {% if request.user.is_authenticated %}
-          <div class="card my-4">
-            <div class="card-body text-center">
-              <a class="btn btn-success" href="{% url 'articles:write_new' %}" title="{% trans 'Write a new article' %}"><i class="fa fa-pencil" aria-hidden="true"></i> {% trans 'New Article' %}</a>
-              <a class="btn btn-primary" href="{% url 'articles:drafts' %}" title="{% trans 'Drafts' %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {% trans 'Drafts' %}</a>
-            </div>
-          </div>
-        {% endif %}
-        <!-- Cloud Tag Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">{% trans 'Cloud tag' %}</h5>
-          <div class="card-body">
-            {% for tag, count in popular_tags %}
-              <a href="#"><span class="badge badge-info">{{ count }} {{ tag }}</span></a>
-            {% endfor %}
+              </td>
+            </table>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- /.row -->
-  </div>
-  <!-- /.container -->
 
-{% endblock content %}
+
+          {% endblock content %}
+
+      {% block javascript %}
+
+          <style>
+
+          .p-bottom {
+          margin-left: 0px;
+          }
+          @media only screen and (max-width: 955px) {
+              #web-version {
+                display:none;
+              }
+              #mobile-version {
+                display:block;
+              }
+              .web-nav,#feed-l,.uploadpost {
+                display:none;
+              }
+              .mobile-nav,.close-m-search svg,.m-search {
+                display:block;
+              }
+              .main-l-c{
+                width:100%;
+              }
+              .main-r-c{
+                width:100%;
+              }
+              .searches {
+                height:100%;
+                margin-bottom:50px;
+                margin-top:0;
+                width:100%;
+                z-index:1;
+                box-shadow: none;
+              }
+              .notifications {
+                width:100%;
+                height:100%;
+                box-shadow: none;
+                z-index:1;
+                margin:0;
+                left: 50%;
+                transform: translate(-50%, 0);
+
+              }
+
+              #t-not {
+                position: relative;
+              }
+              #not{
+                width:200px;
+              }
+
+              .feed {
+                padding-top:0px;
+                padding-bottom: 50px;
+              }
+              .post{
+                max-width: none;
+              }
+          }
+
+          </style>
+      {% endblock javascript %}
+

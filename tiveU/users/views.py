@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
+from tiveU.articles.models import Article
 
 from .models import User
 
@@ -11,6 +12,10 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['articles'] = Article.objects.all()
+        return context
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
@@ -21,9 +26,7 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
-    fields = ['name', 'email', 'picture', 'job_title', 'location', 'personal_url',
-              'facebook_account', 'twitter_account', 'github_account',
-              'linkedin_account', 'short_bio', 'bio', ]
+    fields = ['name', 'email', 'picture', 'job_title', 'bio', 'phone', 'gender']
     model = User
 
     # send the user back to their own page after a successful update
